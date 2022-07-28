@@ -14,7 +14,6 @@ namespace TradingHistory.Controllers.Bases
 {
     public class BaseController
     {
-        public static string BaseURL => ConfigurationManager.AppSettings[Constants.BaseURLKey];
 
         /// <summary>
         /// Calls an URI and fetches the response.
@@ -47,7 +46,7 @@ namespace TradingHistory.Controllers.Bases
         /// <returns></returns>
         public Uri GetServerUri(RequestType requestType, params object[] args)
         {
-            var uri = GetServerUri(BaseURL, requestType, args);
+            var uri = GetServerUri(Settings.BaseURL, requestType, args);
             return uri;
         }
 

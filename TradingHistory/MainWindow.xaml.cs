@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TradingHistory.Controllers;
+using TradingHistory.Models;
 
 namespace TradingHistory
 {
@@ -57,7 +58,7 @@ namespace TradingHistory
                 textBlock.FontWeight = FontWeights.Bold;
             }
             //removes lines past the maximum number of lines allowed
-            if(MainContentPanel.Children.Count >= Constants.MAX_LINES_DISPLAY)
+            if(MainContentPanel.Children.Count >= Settings.MaxLinesDisplay)
             {
                 MainContentPanel.Children.RemoveAt(MainContentPanel.Children.Count - 1);
             }
@@ -108,18 +109,18 @@ namespace TradingHistory
                 while (canFetchData)
                 {
                     var now = DateTimeOffset.Now;
-                    var maxTime = now.AddHours(Constants.MAX_HOURS);
+                    var maxTime = now.AddHours(-Settings.StartInterval);
                     var maxTimeMilliseconds = maxTime.ToUnixTimeMilliseconds();
                     TimeText.Text = String.Format(Constants.TIME_TEXT, maxTime.LocalDateTime);
 
-                    var tradeList = await controller.BitcoinEuroTradeHistory(Constants.RECORD_LIMIT, maxTimeMilliseconds);
+                    var tradeList = await controller.BitcoinEuroTradeHistory(Settings.RecordLimit, maxTimeMilliseconds);
                     var minPrice = tradeList.Min(o => o.Price);
                     var maxPrice = tradeList.Max(o => o.Price);
                     var averagePrice = tradeList.Average(o => o.Price);
                     var displayText = String.Format(Constants.BTC_EUR_DISPLAY_TEXT, now.LocalDateTime, minPrice, maxPrice, averagePrice);
                     SetMainContent(displayText);
 
-                    await Task.Delay(Constants.REFRESH_INTERVAL);
+                    await Task.Delay(Settings.RefreshInterval);
                 }
             }
             catch (Exception ex)

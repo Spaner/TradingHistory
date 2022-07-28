@@ -8,11 +8,26 @@ namespace TradingHistory
 {
     public static class Constants
     {
+        
+        #region Config Keys
+
+        public const string BaseURLKey = "APIBaseURL";
+        public const string RefreshIntervalKey = "RefreshInterval";
+        public const string RecordLimitKey = "RecordLimit";
+        public const string StartIntervalKey = "StartInterval";
+        public const string MaxLinesDisplayKey = "MaxLinesDisplay";
+
+        #endregion
+
+        #region Default Values
+
         public const int REFRESH_INTERVAL = 10000; //milliseconds
         public const int RECORD_LIMIT = 10000; //max number of records to fetch
-        public const int MAX_LINES_DISPLAY = 100; //max number of records to fetch
-        public const int MAX_HOURS = -1; //number of hours to go back and fetch records
-        public const string BaseURLKey = "APIBaseURL";
+        public const int MAX_LINES_DISPLAY = 100; //max number of lines to display
+        public const int START_INTERVAL = 1; //number of hours to go back and fetch records
+        public const string BASE_URL = "https://api-pub.bitfinex.com/v2/"; //base API URL
+
+        #endregion
 
         #region Text
 
