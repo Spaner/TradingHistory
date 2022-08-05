@@ -13,8 +13,7 @@ namespace TradingHistory.Helpers.Attributes
         /// Request path attribute.
         /// </summary>
         /// <param name="path">Path and query parameters with placeholders for parameters</param>
-        /// <param name="method">HTTP Request Method</param>
-        public RequestPathAttribute(string path, HttpRequestMethod method)
+        public RequestPathAttribute(string path)
         {
             Path = path;
         }

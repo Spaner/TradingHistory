@@ -10,8 +10,8 @@ namespace TradingHistory.Helpers.Enums
     public enum RequestType
     {
 
-        [RequestPath("platform/status", HttpRequestMethod.Get)] Status,
-        [RequestPath("trades/tBTCEUR/hist?limit={0}&start={1}", HttpRequestMethod.Get)] BTC_EUR_History,
+        [RequestPath("platform/status")] Status,
+        [RequestPath("trades/tBTCEUR/hist?limit={0}&start={1}")] BTC_EUR_History,
 
     }
 }
