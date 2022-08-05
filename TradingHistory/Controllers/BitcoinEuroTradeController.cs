@@ -26,38 +26,14 @@ namespace TradingHistory.Controllers
             var response = await GetAsync<List<JArray>>(GetServerUri(RequestType.BTC_EUR_History, recordLimit, startMilliseconds));
             if (response != null && response.Content != null)
             {
-                foreach (var jArray in response.Content)
-                {
-                    //convert to model
-                    var values = jArray.Children();
-                    var tradeModel = new BitcoinEuroTrade();
-                    for (int i = 0; i < values.Count(); i++)
-                    {
-                        //properties come in the same order
-                        switch (i)
-                        {
-                            case 0:
-                                var tradeId = Convert.ToInt32(values.ElementAt(i));
-                                tradeModel.TradeId = tradeId;
-                                break;
-                            case 1:
-                                var timeStamp = Convert.ToInt64(values.ElementAt(i));
-                                tradeModel.MillisecondTimeStamp = timeStamp;
-                                break;
-                            case 2:
-                                var amount = Convert.ToDouble(values.ElementAt(i));
-                                tradeModel.Amount = amount;
-                                break;
-                            case 3:
-                                var price = Convert.ToDouble(values.ElementAt(i));
-                                tradeModel.Price = price;
-                                break;
-                        }
-                    }
-                    tradeList.Add(tradeModel);
-                }
-            }
 
+                tradeList = response.Content.Select(jArray => jArray.Children())
+                    .Select(jToken => new BitcoinEuroTrade()
+                     {
+                         TradeId = Convert.ToInt32(jToken.ElementAt(Constants.TradeIdIndex)),
+                         Price = Convert.ToDouble(jToken.ElementAt(Constants.PriceIndex))
+                     }).ToList();
+            }
             return tradeList;
 
         }

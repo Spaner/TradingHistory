@@ -8,7 +8,9 @@ namespace TradingHistory
 {
     public static class Constants
     {
-        
+        public const int TradeIdIndex = 0;
+        public const int PriceIndex = 3;
+
         #region Config Keys
 
         public const string BaseURLKey = "APIBaseURL";
