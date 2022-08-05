@@ -29,7 +29,7 @@ namespace TradingHistory.Controllers.Bases
             {
                 if (result?.IsSuccessStatusCode ?? false)
                 {
-                    var content = result.Content.ReadAsStringAsync().Result;
+                    var content = await result.Content.ReadAsStringAsync();
                     var deserialized = content.Deserialize<T>();
                     response = new ResponsePackage<T>(deserialized);
                 }
