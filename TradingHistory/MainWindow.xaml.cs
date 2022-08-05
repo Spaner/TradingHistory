@@ -111,13 +111,13 @@ namespace TradingHistory
                     var now = DateTimeOffset.Now;
                     var maxTime = now.AddHours(-Settings.StartInterval);
                     var maxTimeMilliseconds = maxTime.ToUnixTimeMilliseconds();
-                    TimeText.Text = String.Format(Constants.TIME_TEXT, maxTime.LocalDateTime);
+                    TimeText.Text = string.Format(Constants.TIME_TEXT, maxTime.LocalDateTime);
 
                     var tradeList = await controller.BitcoinEuroTradeHistory(Settings.RecordLimit, maxTimeMilliseconds);
                     var minPrice = tradeList.Min(o => o.Price);
                     var maxPrice = tradeList.Max(o => o.Price);
                     var averagePrice = tradeList.Average(o => o.Price);
-                    var displayText = String.Format(Constants.BTC_EUR_DISPLAY_TEXT, now.LocalDateTime, minPrice, maxPrice, averagePrice);
+                    var displayText = string.Format(Constants.BTC_EUR_DISPLAY_TEXT, now.LocalDateTime, minPrice, maxPrice, averagePrice);
                     SetMainContent(displayText);
 
                     await Task.Delay(Settings.RefreshInterval);
